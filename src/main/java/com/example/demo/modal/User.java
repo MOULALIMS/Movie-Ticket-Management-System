@@ -2,6 +2,8 @@ package com.example.demo.modal;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -12,12 +14,16 @@ public class User {
     private Integer userId;
 
     @Column(name = "username", length = 100, nullable = false)
+    //@JsonProperty("username")
     private String userName;
 
     @Column(name = "password", length = 100, nullable = false)
+    //@JsonProperty("password")
+    @JsonProperty("userPassword")
     private String userPassword;
 
     @Column(name = "email", unique = true, nullable = false, length = 100)
+    //@JsonProperty("email")
     private String email;
 
     @Column(name = "phone", length = 15)

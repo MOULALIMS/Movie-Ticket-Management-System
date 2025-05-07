@@ -19,4 +19,6 @@ public interface SeatService {
 
 	void addSeats(Integer screenId, Integer integer) throws GlobalException;
 
+	void bookSeats(List<Integer> seatIds);
+
 }

@@ -19,21 +19,26 @@ public class UserController {
     private UserService userService;
 
     // Register new user
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) throws GlobalException {
-        User newUser = userService.createUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
+	 @PostMapping("/register")
+	    public ResponseEntity<User> registerUser(@RequestBody User user) throws GlobalException {
+	        User newUser = userService.createUser(user);
+	        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+	    }
 
-    // User login
-    @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody Map<String, String> credentials) throws GlobalException {
-        User user = userService.authenticateUser(
-            credentials.get("email"),
-            credentials.get("password")
-        );
-        return ResponseEntity.ok(user);
-    }
+	    // User login (expects email and userPassword)
+	
+	 @PostMapping("/login")
+	 public ResponseEntity<User> loginUser(@RequestBody Map<String, String> credentials) throws GlobalException {
+	   if (!credentials.containsKey("email") || !credentials.containsKey("userPassword")) {
+	     throw new GlobalException("Email and password are required");
+	   }
+	   
+	   User user = userService.authenticateUser(
+	     credentials.get("email"),
+	     credentials.get("userPassword")
+	   );
+	   return ResponseEntity.ok(user);
+	 }
 
     // Get user by ID
     @GetMapping("/{userId}")

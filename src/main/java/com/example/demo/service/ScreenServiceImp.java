@@ -26,6 +26,9 @@ public class ScreenServiceImp implements ScreenService {
 
 	    // Set the theatre to screen and save
 	    screen.setTheatre(theatre);
+	    Theatre t = theatreRepo.findById(theatreId).get();
+	    t.setTotalScreens(t.getTotalScreens() + 1);
+	    theatreRepo.save(t);
 	    return screenRepo.save(screen);
 	}
 

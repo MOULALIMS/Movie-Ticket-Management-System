@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.example.demo.error.GlobalException;
 import com.example.demo.modal.MovieShow;
+import com.example.demo.modal.Theatre;
 
 public interface MovieShowService {
 
@@ -25,5 +26,7 @@ public interface MovieShowService {
 	List<MovieShow> getAllShows();
 
 	MovieShow addShow(Integer movieId, Integer screenId, LocalDate date, LocalTime startTime, Double price) throws GlobalException;
+
+	List<Theatre> getTheatresByMovie(Integer movieId);
 
 }

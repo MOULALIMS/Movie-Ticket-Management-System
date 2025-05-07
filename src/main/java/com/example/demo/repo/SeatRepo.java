@@ -21,4 +21,5 @@ public interface SeatRepo extends JpaRepository<Seat, Integer> {
     @Modifying
     @Query("UPDATE Seat s SET s.isBooked = true WHERE s.seatId = :seatid")
     void markSeatAsBooked(@Param("seatid") Integer seatId);
+    
 }

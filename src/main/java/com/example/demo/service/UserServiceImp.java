@@ -23,7 +23,7 @@ public class UserServiceImp implements UserService {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^\\+?[0-9]{10,15}$");
 
-    @Override
+    /*@Override
     public User createUser(User user) throws GlobalException {
         // Validation checks
         validateEmail(user.getEmail());
@@ -36,7 +36,7 @@ public class UserServiceImp implements UserService {
         // Hash password before saving
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         return userRepository.save(user);
-    }
+    }*/
 
     @Override
     public User updateUser(Integer userId, User userDetails) throws GlobalException {
@@ -83,7 +83,7 @@ public class UserServiceImp implements UserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new GlobalException("User not found with email: " + email));
     }
-
+/*
     @Override
     public User authenticateUser(String email, String password) throws GlobalException {
         User user = userRepository.findByEmail(email)
@@ -93,7 +93,7 @@ public class UserServiceImp implements UserService {
             throw new GlobalException("Invalid credentials");
         }
         return user;
-    }
+    }*/
 
     @Override
     public void changePassword(Integer userId, String oldPassword, String newPassword) throws GlobalException {
@@ -121,5 +121,22 @@ public class UserServiceImp implements UserService {
             }
         }
         return phone; // Returning validated phone number
+    }
+    
+    @Override
+    public User createUser(User user) throws GlobalException {
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User authenticateUser(String email, String rawPassword) throws GlobalException {
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new GlobalException("User not found"));
+        
+        if (!passwordEncoder.matches(rawPassword, user.getUserPassword())) {
+            throw new GlobalException("Invalid password");
+        }
+        return user;
     }
 }

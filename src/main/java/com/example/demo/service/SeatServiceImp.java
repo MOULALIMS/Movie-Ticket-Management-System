@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
 public class SeatServiceImp implements SeatService {
 
@@ -32,13 +34,6 @@ public class SeatServiceImp implements SeatService {
                 .orElseThrow(() -> new GlobalException("Show not found with id: " + showId));
         return seatRepo.findByShowId(show.getShowId());
     }
-
-    // Get available seats for a show
-    @Override
-    public List<Seat> getAvailableSeatsByShow(Integer showId) throws GlobalException {
-        return seatRepo.findByMovieShow_ShowIdAndIsBookedFalse(showId);
-    }
-
     // Book a seat for a show
     @Override
     public Seat bookSeat(Integer seatId) throws GlobalException {
@@ -102,6 +97,21 @@ public class SeatServiceImp implements SeatService {
         // Update total seats count in screen
         screen.setTotalNoOfSeats(currentSeats + numberOfSeats);
         screenRepo.save(screen);
+    }
+    
+    @Override
+    public List<Seat> getAvailableSeatsByShow(Integer showId) {
+        return seatRepo.findByMovieShow_ShowIdAndIsBookedFalse(showId);
+    }
+
+    @Transactional
+    public void bookSeats(List<Integer> seatIds) {
+        seatIds.forEach(id -> {
+            Seat seat = seatRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Seat not found"));
+            seat.setIsBooked(true);
+            seatRepo.save(seat);
+        });
     }
 
 }

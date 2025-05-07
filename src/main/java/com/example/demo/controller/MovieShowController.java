@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.error.GlobalException;
 import com.example.demo.modal.MovieShow;
 import com.example.demo.modal.ShowRequest;
+import com.example.demo.modal.Theatre;
 import com.example.demo.service.MovieShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -66,6 +67,11 @@ public class MovieShowController {
             @PathVariable Integer screenId,
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws GlobalException {
         return ResponseEntity.ok(movieShowService.getShowsByScreenAndDate(screenId, date));
+    }
+    
+    @GetMapping("/movie/{movieId}/theatres")
+    public List<Theatre> getTheatresByMovie(@PathVariable Integer movieId) {
+        return movieShowService.getTheatresByMovie(movieId);
     }
 
     @GetMapping

@@ -4,6 +4,7 @@ import com.example.demo.error.GlobalException;
 import com.example.demo.modal.MovieShow;
 import com.example.demo.modal.Movies;
 import com.example.demo.modal.Screen;
+import com.example.demo.modal.Theatre;
 import com.example.demo.repo.MovieShowRepo;
 import com.example.demo.repo.MoviesRepo;
 import com.example.demo.repo.ScreenRepo;
@@ -111,5 +112,9 @@ public class MovieShowServiceImp implements MovieShowService {
     @Override
     public List<MovieShow> getAllShows() {
         return movieShowRepo.findAll();
+    }
+    @Override
+    public List<Theatre> getTheatresByMovie(Integer movieId) {
+        return movieShowRepo.findTheatresByMovieId(movieId);
     }
 }

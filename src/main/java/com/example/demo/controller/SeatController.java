@@ -25,6 +25,17 @@ public class SeatController {
     @Autowired
     private SeatService seatService;
     
+    @GetMapping("/show/{showId}/available")
+    public List<Seat> getAvailableSeats1(@PathVariable Integer showId) throws GlobalException {
+        return seatService.getAvailableSeatsByShow(showId);
+    }
+
+    @PostMapping("/book")
+    public ResponseEntity<Void> bookSeats(@RequestBody List<Integer> seatIds) {
+        seatService.bookSeats(seatIds);
+        return ResponseEntity.ok().build();
+    }
+    
     @PostMapping("/add/{screenId}")
     public ResponseEntity<Void> addSeats(
         @PathVariable Integer screenId,

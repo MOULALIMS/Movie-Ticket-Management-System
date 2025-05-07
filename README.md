@@ -1,8 +1,4 @@
-Here's a full summary for your **Movie Ticket Management System**:
-
----
-
-**Movie Ticket Management System (MTMS)**
+*Movie Ticket Management System (MTMS)**
 
 **Overview**
 The Movie Ticket Management System (MTMS) is a web-based application designed to simplify the process of browsing, booking, and managing movie tickets. The system serves both users and administrators, offering an efficient platform for users to book tickets and for administrators to manage movie listings, theatre schedules, and seat availability. The system ensures smooth integration of booking functionalities, providing an intuitive user interface and robust backend for seamless movie ticket management.
